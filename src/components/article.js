@@ -8,7 +8,7 @@ function Article(props) {
       <h3>{article.title}</h3>
       <button onClick={toggleOpen}>{isOpen ? 'close' : 'open'}</button>
       {getBody(props)}
-      <Comments comments={comments} />
+      {isOpen && <Comments comments={comments} />}
     </div>
   )
 }
