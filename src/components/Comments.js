@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Comment from './Comment'
-import OpenCommentsComponent from '../decorators/OpenComments'
+import withClosable from '../decorators/withClosable'
 
 class Comments extends Component {
   render() {
@@ -24,4 +24,4 @@ class Comments extends Component {
   }
 }
 
-export default OpenCommentsComponent(Comments)
+export default withClosable(Comments)
