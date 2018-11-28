@@ -1,33 +1,21 @@
 import React, { Component } from 'react'
 import Comment from './Comment'
-import accordion from '../decorators/accordion'
+import OpenCommentsComponent from '../decorators/OpenComments'
 
-export default class Comments extends Component {
-  state = {
-    openItemId: false
-  }
-
-  handle = () => {
-    this.setState((state) => {
-      return {
-        openItemId: !state.openItemId
-      }
-    })
-  }
-
+class Comments extends Component {
   render() {
     return <ul>{this.comments()}</ul>
   }
 
   comments() {
-    const { comments } = this.props
+    const { comments, isOpen, toggleOpen } = this.props
     if (comments === undefined) {
       return null
     }
     return (
       <div>
-        <button onClick={this.handle}>{this.state.openItemId ? 'close' : 'open'}</button>
-        {this.state.openItemId &&
+        <button onClick={toggleOpen}>{isOpen ? 'Close Comments' : 'Open Comments'}</button>
+        {isOpen &&
           comments.map((comment) => (
             <li key={comment.id}>
               <Comment comment={comment} />
@@ -37,3 +25,5 @@ export default class Comments extends Component {
     )
   }
 }
+
+export default OpenCommentsComponent(Comments)
