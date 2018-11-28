@@ -13,7 +13,7 @@ class Comments extends Component {
       <div>
         <button onClick={toggleOpen}>{isOpen ? 'Close Comments' : 'Open Comments'}</button>
         {isOpen &&
-          comments !== undefined &&
+          comments &&
           comments.map((comment) => (
             <li key={comment.id}>
               <Comment comment={comment} />

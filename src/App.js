@@ -5,8 +5,8 @@ import ArticleList from './components/article-list'
 import ArticlesChart from './components/articles-chart'
 import UserForm from './components/user-form'
 import Select from 'react-select'
-import DayPicker from 'react-day-picker'
 import 'react-day-picker/lib/style.css'
+import DateRangePicker from './components/DateRangePicker'
 
 class App extends Component {
   state = {
@@ -19,7 +19,7 @@ class App extends Component {
     return (
       <div>
         <UserForm />
-        <DayPicker />
+        <DateRangePicker />
         <Select
           options={this.getOptions()}
           value={this.state.selected}
