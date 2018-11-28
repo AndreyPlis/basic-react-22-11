@@ -9,13 +9,11 @@ class Comments extends Component {
 
   comments() {
     const { comments, isOpen, toggleOpen } = this.props
-    if (comments === undefined) {
-      return null
-    }
     return (
       <div>
         <button onClick={toggleOpen}>{isOpen ? 'Close Comments' : 'Open Comments'}</button>
         {isOpen &&
+          comments !== undefined &&
           comments.map((comment) => (
             <li key={comment.id}>
               <Comment comment={comment} />
