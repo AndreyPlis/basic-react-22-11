@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 class UserForm extends Component {
   static defaultProps = {
@@ -7,6 +8,10 @@ class UserForm extends Component {
 
   state = {
     username: ''
+  }
+
+  static propTypes = {
+    label: PropTypes.string
   }
 
   handleUserChange = (ev) => {

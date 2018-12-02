@@ -47,10 +47,4 @@ class CommentList extends Component {
   }
 }
 
-/*
-CommentList.propTypes = {
-
-}
-*/
-
 export default toggleOpen(CommentList)
