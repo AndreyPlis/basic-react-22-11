@@ -21,13 +21,13 @@ function getBody({ isOpen, article }) {
   return (
     <section className="test__article--body">
       {article.text}
-      <CommentList comments={article.comments} />
+      <CommentList comments={article.comments} className="test__comments--body" />
     </section>
   )
 }
 
 Article.propTypes = {
-  article: PropTypes.array,
+  article: PropTypes.object,
   isOpen: PropTypes.bool,
   toggleOpenItem: PropTypes.func
 }

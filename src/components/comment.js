@@ -11,7 +11,7 @@ function Comment({ comment }) {
 }
 
 Comment.propTypes = {
-  comment: PropTypes.array
+  comment: PropTypes.object
 }
 
 export default Comment
