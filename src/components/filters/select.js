@@ -1,12 +1,19 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
+import connect from 'react-redux/es/connect/connect'
+import { filterArticles } from '../../ac'
 
 class SelectFilter extends Component {
   state = {
     selected: null
   }
 
-  handleChange = (selected) => this.setState({ selected })
+  handleChange = (selected) => {
+    this.setState({ selected })
+
+    const { filterArticles } = this.props
+    filterArticles(selected.map((sel) => sel.value))
+  }
 
   get options() {
     return this.props.articles.map((article) => ({
@@ -27,4 +34,9 @@ class SelectFilter extends Component {
   }
 }
 
-export default SelectFilter
+export default connect(
+  (state) => ({
+    articles: state.articles
+  }),
+  { filterArticles }
+)(SelectFilter)
