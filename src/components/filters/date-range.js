@@ -7,11 +7,11 @@ import { selectDateRange } from '../../ac'
 
 class DateRange extends Component {
   handleDayClick = (day) => {
-    this.props.selectDateRange(DateUtils.addDayToRange(day, this.props.dateRange))
+    this.props.selectDateRange(DateUtils.addDayToRange(day, this.props.articles.selectedDateRange))
   }
 
   render() {
-    const { from, to } = this.props.dateRange
+    const { from, to } = this.props.articles.selectedDateRange
     const selectedRange = from && to && `${from.toDateString()} - ${to.toDateString()}`
     return (
       <div className="date-range">
@@ -27,7 +27,7 @@ class DateRange extends Component {
 
 export default connect(
   (state) => ({
-    dateRange: state.selectedDateRange
+    articles: state.articles
   }),
   { selectDateRange: selectDateRange }
 )(DateRange)

@@ -6,7 +6,7 @@ import accordion from '../decorators/accordion'
 
 export class ArticleList extends Component {
   static propTypes = {
-    articles: PropTypes.array.isRequired,
+    articles: PropTypes.object.isRequired,
     openItemId: PropTypes.string,
     toggleOpenItem: PropTypes.func.isRequired
   }
@@ -36,7 +36,7 @@ export class ArticleList extends Component {
 
   articleItems() {
     const { articles, openItemId, toggleOpenItem } = this.props
-    return articles.map((article) => (
+    return articles.filterArticles.map((article) => (
       <li key={article.id} className="test__article-list--item">
         <Article
           article={article}
