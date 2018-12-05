@@ -4,7 +4,7 @@ import { DateUtils } from 'react-day-picker'
 
 export default (
   articlesState = {
-    articles: defaultArticles,
+    defaultArticles: defaultArticles,
     selectedArticles: null,
     selectedDateRange: { from: null, to: null },
     filterArticles: defaultArticles
@@ -12,29 +12,29 @@ export default (
   action
 ) => {
   const { type, payload } = action
-  const { articles, selectedArticles, selectedDateRange } = articlesState
-  let filterArticles = null
+  const { defaultArticles, selectedArticles, selectedDateRange, filterArticles } = articlesState
+  let newFilterArticles = null
   switch (type) {
     case DELETE_ARTICLE:
-      const res = articlesState.filterArticles.filter((article) => article.id !== payload.id)
-      return { articles, selectedArticles, selectedDateRange, filterArticles: res }
+      const res = filterArticles.filter((article) => article.id !== payload.id)
+      return { defaultArticles, selectedArticles, selectedDateRange, filterArticles: res }
 
     case SELECTED_ARTICLES:
-      filterArticles = filter(articles, payload.selectedArticles, selectedDateRange)
+      newFilterArticles = filter(defaultArticles, payload.selectedArticles, selectedDateRange)
       return {
-        articles,
+        defaultArticles,
         selectedArticles: payload.selectedArticles,
         selectedDateRange,
-        filterArticles: filterArticles
+        filterArticles: newFilterArticles
       }
 
     case SELECTED_DATE_RANGE:
-      filterArticles = filter(articles, selectedArticles, payload.selectedDateRange)
+      newFilterArticles = filter(defaultArticles, selectedArticles, payload.selectedDateRange)
       return {
-        articles,
+        defaultArticles,
         selectedArticles,
         selectedDateRange: payload.selectedDateRange,
-        filterArticles: filterArticles
+        filterArticles: newFilterArticles
       }
 
     default:
@@ -44,14 +44,13 @@ export default (
 
 function filter(articles, selectedArticles, selectedDateRange) {
   let filterArticles = defaultArticles
-  if (selectedArticles != null && selectedArticles.length !== 0) {
+  if (selectedArticles && selectedArticles.length !== 0) {
     const selectedIds = selectedArticles.map((article) => article.value)
     filterArticles = articles.filter((article) => selectedIds.includes(article.id))
   }
-  const { from, to } = selectedDateRange
-  if (from && to) {
+  if (selectedDateRange) {
     filterArticles = filterArticles.filter((article) =>
-      DateUtils.isDayInRange(new Date(article.date), { from, to })
+      DateUtils.isDayInRange(new Date(article.date), selectedDateRange)
     )
   }
 

@@ -9,7 +9,7 @@ class SelectFilter extends Component {
   }
 
   get options() {
-    return this.props.articles.articles.map((article) => ({
+    return this.props.articles.defaultArticles.map((article) => ({
       label: article.title,
       value: article.id
     }))
