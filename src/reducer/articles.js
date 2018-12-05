@@ -16,8 +16,8 @@ export default (
   let filterArticles = null
   switch (type) {
     case DELETE_ARTICLE:
-      const res = articlesState.articles.filter((article) => article.id !== payload.id)
-      return { articles: res, selectedArticles, selectedDateRange }
+      const res = articlesState.filterArticles.filter((article) => article.id !== payload.id)
+      return { articles, selectedArticles, selectedDateRange, filterArticles: res }
 
     case SELECTED_ARTICLES:
       filterArticles = filter(articles, payload.selectedArticles, selectedDateRange)
@@ -48,12 +48,12 @@ function filter(articles, selectedArticles, selectedDateRange) {
     const selectedIds = selectedArticles.map((article) => article.value)
     filterArticles = articles.filter((article) => selectedIds.includes(article.id))
   }
-
-  /* filterArticles = filterArticles.filter((article) =>
-    DateUtils.isDayInRange(article.date, selectedDateRange)
-  )*/
-
-  //{(day) => DateUtils.isDayInRange(day, { from, to })}
+  const { from, to } = selectedDateRange
+  if (from && to) {
+    filterArticles = filterArticles.filter((article) =>
+      DateUtils.isDayInRange(new Date(article.date), { from, to })
+    )
+  }
 
   return filterArticles
 }
