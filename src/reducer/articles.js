@@ -4,7 +4,7 @@ import { DateUtils } from 'react-day-picker'
 
 export default (
   articlesState = {
-    defaultArticles: defaultArticles,
+    articles: defaultArticles,
     selectedArticles: null,
     selectedDateRange: { from: null, to: null },
     filteredArticles: defaultArticles
@@ -12,26 +12,26 @@ export default (
   action
 ) => {
   const { type, payload } = action
-  const { defaultArticles, selectedArticles, selectedDateRange, filteredArticles } = articlesState
+  const { articles, selectedArticles, selectedDateRange, filteredArticles } = articlesState
   let newFilterArticles = null
   switch (type) {
     case DELETE_ARTICLE:
       const res = filteredArticles.filter((article) => article.id !== payload.id)
-      return { defaultArticles, selectedArticles, selectedDateRange, filteredArticles: res }
+      return { articles, selectedArticles, selectedDateRange, filteredArticles: res }
 
     case SELECTED_ARTICLES:
-      newFilterArticles = filter(defaultArticles, payload.selectedArticles, selectedDateRange)
+      newFilterArticles = filter(articles, payload.selectedArticles, selectedDateRange)
       return {
-        defaultArticles,
+        articles,
         selectedArticles: payload.selectedArticles,
         selectedDateRange,
         filteredArticles: newFilterArticles
       }
 
     case SELECTED_DATE_RANGE:
-      newFilterArticles = filter(defaultArticles, selectedArticles, payload.selectedDateRange)
+      newFilterArticles = filter(articles, selectedArticles, payload.selectedDateRange)
       return {
-        defaultArticles,
+        articles,
         selectedArticles,
         selectedDateRange: payload.selectedDateRange,
         filteredArticles: newFilterArticles
