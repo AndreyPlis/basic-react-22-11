@@ -7,17 +7,17 @@ export default (
     defaultArticles: defaultArticles,
     selectedArticles: null,
     selectedDateRange: { from: null, to: null },
-    filterArticles: defaultArticles
+    filteredArticles: defaultArticles
   },
   action
 ) => {
   const { type, payload } = action
-  const { defaultArticles, selectedArticles, selectedDateRange, filterArticles } = articlesState
+  const { defaultArticles, selectedArticles, selectedDateRange, filteredArticles } = articlesState
   let newFilterArticles = null
   switch (type) {
     case DELETE_ARTICLE:
-      const res = filterArticles.filter((article) => article.id !== payload.id)
-      return { defaultArticles, selectedArticles, selectedDateRange, filterArticles: res }
+      const res = filteredArticles.filter((article) => article.id !== payload.id)
+      return { defaultArticles, selectedArticles, selectedDateRange, filteredArticles: res }
 
     case SELECTED_ARTICLES:
       newFilterArticles = filter(defaultArticles, payload.selectedArticles, selectedDateRange)
@@ -25,7 +25,7 @@ export default (
         defaultArticles,
         selectedArticles: payload.selectedArticles,
         selectedDateRange,
-        filterArticles: newFilterArticles
+        filteredArticles: newFilterArticles
       }
 
     case SELECTED_DATE_RANGE:
@@ -34,7 +34,7 @@ export default (
         defaultArticles,
         selectedArticles,
         selectedDateRange: payload.selectedDateRange,
-        filterArticles: newFilterArticles
+        filteredArticles: newFilterArticles
       }
 
     default:
@@ -43,16 +43,17 @@ export default (
 }
 
 function filter(articles, selectedArticles, selectedDateRange) {
-  let filterArticles = defaultArticles
-  if (selectedArticles && selectedArticles.length !== 0) {
+  let filteredArticles = articles
+  if (selectedArticles != null && selectedArticles.length !== 0) {
     const selectedIds = selectedArticles.map((article) => article.value)
-    filterArticles = articles.filter((article) => selectedIds.includes(article.id))
+    filteredArticles = articles.filter((article) => selectedIds.includes(article.id))
   }
-  if (selectedDateRange) {
-    filterArticles = filterArticles.filter((article) =>
+  const { from, to } = selectedDateRange
+  if (from || to) {
+    filteredArticles = filteredArticles.filter((article) =>
       DateUtils.isDayInRange(new Date(article.date), selectedDateRange)
     )
   }
 
-  return filterArticles
+  return filteredArticles
 }
