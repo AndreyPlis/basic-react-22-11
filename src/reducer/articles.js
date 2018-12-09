@@ -1,4 +1,4 @@
-import { normalizedArticles, normalizedComments } from '../fixtures'
+import { normalizedArticles } from '../fixtures'
 import { ADD_COMMENT, DELETE_ARTICLE } from '../constants'
 
 const defaultArticles = normalizedArticles.reduce(function(map, article) {
