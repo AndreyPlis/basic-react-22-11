@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import CommentList from '../comment-list'
 import { connect } from 'react-redux'
 import { deleteArticle } from '../../ac'
+import CommentForm from '../comment-form'
 
 class Article extends Component {
   render() {

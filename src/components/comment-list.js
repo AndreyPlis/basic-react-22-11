@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Comment from './comment'
 import toggleOpen from '../decorators/toggleOpen'
+import CommentForm from './comment-form'
 
 class CommentList extends Component {
   static propTypes = {
@@ -45,7 +46,12 @@ class CommentList extends Component {
       <h3 className="test__comment-list--empty">No comments yet</h3>
     )
 
-    return <div>{body}</div>
+    return (
+      <div>
+        {body}
+        <CommentForm />
+      </div>
+    )
   }
 }
 
