@@ -8,15 +8,15 @@ const defaultArticles = normalizedArticles.reduce(function(map, article) {
 
 export default (articlesState = defaultArticles, action) => {
   const { type, payload } = action
-
+  const newArticles = { ...articlesState }
   switch (type) {
     case ADD_COMMENT:
       const { article, id } = payload
-      const newArticles = { ...articlesState }
       newArticles[article].comments.push(id)
       return newArticles
     case DELETE_ARTICLE:
-      return articlesState.filter((article) => article.id !== payload.id)
+      delete newArticles[payload.id]
+      return newArticles
 
     default:
       return articlesState
