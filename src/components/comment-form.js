@@ -9,12 +9,12 @@ class CommentForm extends Component {
 
   state = {
     comment: null,
-    author: 'user'
+    user: 'user'
   }
 
   handleAddCommentClick = () => {
-    const { addComment } = this.props
-    addComment({ text: this.state.comment, author: this.state.author })
+    const { article, addComment } = this.props
+    addComment({ comment: { text: this.state.comment, user: this.state.user }, article })
   }
 
   handleChange = (e) => {

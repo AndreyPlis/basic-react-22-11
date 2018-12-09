@@ -33,6 +33,7 @@ class Article extends Component {
       <section className="test__article--body">
         {article.text}
         <CommentList comments={article.comments} />
+        <CommentForm article={article.id} />
       </section>
     )
   }

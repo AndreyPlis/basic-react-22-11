@@ -15,8 +15,9 @@ export default (commentsState = defaultComments, action) => {
 
   switch (type) {
     case ADD_COMMENT:
-      commentsState[payload.id] = { ...payload.comment, id: payload.id }
-      return commentsState
+      const newComments = { ...commentsState }
+      newComments[payload.id] = { ...payload.comment, id: payload.id }
+      return newComments
     default:
       return commentsState
   }
