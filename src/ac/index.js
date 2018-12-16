@@ -6,6 +6,7 @@ import {
   ADD_COMMENT,
   LOAD_ALL_ARTICLES,
   LOAD_ARTICLE,
+  LOAD_ARTICLE_COMMENTS,
   START,
   SUCCESS,
   FAIL
@@ -64,7 +65,11 @@ export function loadArticleById(id) {
 */
 
 export function loadArticleById(id) {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const article = getState().articles.entities.get(id)
+
+    if (article && article.text) return
+
     dispatch({
       type: LOAD_ARTICLE + START,
       payload: { id }
@@ -86,5 +91,13 @@ export function loadArticleById(id) {
           error
         })
       )
+  }
+}
+
+export function loadArticleComments(articleId) {
+  return {
+    type: LOAD_ARTICLE_COMMENTS,
+    payload: { articleId },
+    callAPI: `/api/comment?article=${articleId}`
   }
 }
